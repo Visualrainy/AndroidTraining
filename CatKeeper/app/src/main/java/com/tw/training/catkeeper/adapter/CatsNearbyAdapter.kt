@@ -53,9 +53,6 @@ class CatsNearbyAdapter(context: Context, var mCatsNearbyList: List<CatsNearby>?
         val mDescription: TextView = itemView.findViewById(R.id.cat_description)
         val mThumbs = listOf<ImageView>(itemView.findViewById(R.id.thumb_1),
                 itemView.findViewById(R.id.thumb_2), itemView.findViewById(R.id.thumb_3))
-//        val mThumbIv1: ImageView = itemView.findViewById(R.id.thumb_1)
-//        val mThumbIv2: ImageView = itemView.findViewById(R.id.thumb_2)
-//        val mThumbIv3: ImageView = itemView.findViewById(R.id.thumb_3)
 
         init {
             mAvatarIv.setOnClickListener {
