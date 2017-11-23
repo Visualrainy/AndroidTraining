@@ -8,6 +8,8 @@ import com.tw.training.catkeeper.domain.CatsNearby
 interface CatsNearbyContract {
     interface View {
         fun showNearbyCats(catsNearby: List<CatsNearby>?)
+        fun onGetSuccess(data: List<CatsNearby>)
+        fun onGetFailed(data: String)
     }
     interface Presenter {
         fun start()

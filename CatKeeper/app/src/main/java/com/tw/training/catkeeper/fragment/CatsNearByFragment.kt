@@ -23,11 +23,12 @@ class CatsNearByFragment : Fragment(), CatsNearbyContract.View, CatsNearbyAdapte
     private val mPresenter: CatsNearbyPresenter = CatsNearbyPresenter(this)
 
     private lateinit var mCatsNearbyAdapter: CatsNearbyAdapter
-    companion object {
 
+    companion object {
         fun newInstance(): CatsNearByFragment {
             return CatsNearByFragment()
         }
+
     }
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater!!.inflate(R.layout.cats_nearby, container, false)
@@ -35,7 +36,6 @@ class CatsNearByFragment : Fragment(), CatsNearbyContract.View, CatsNearbyAdapte
 
         return view
     }
-
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mRecyclerView.layoutManager = LinearLayoutManager(activity)
@@ -48,6 +48,14 @@ class CatsNearByFragment : Fragment(), CatsNearbyContract.View, CatsNearbyAdapte
     override fun showNearbyCats(catsNearbyList: List<CatsNearby>?) {
         mCatsNearbyAdapter.mCatsNearbyList = catsNearbyList
         mCatsNearbyAdapter.notifyDataSetChanged()
+    }
+
+    override fun onGetSuccess(data: List<CatsNearby>) {
+        mCatsNearbyAdapter.mCatsNearbyList = data
+        mCatsNearbyAdapter.notifyDataSetChanged()
+    }
+
+    override fun onGetFailed(data: String) {
     }
 
     override fun onProfileClick(position: Int) {

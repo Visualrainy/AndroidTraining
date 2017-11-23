@@ -1,37 +1,46 @@
 package com.tw.training.catkeeper.adapter
 
 import android.content.Context
+import android.graphics.drawable.Drawable
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.target.SimpleTarget
+import com.bumptech.glide.request.target.Target
+import com.bumptech.glide.request.transition.Transition
 import com.tw.training.catkeeper.R
 import com.tw.training.catkeeper.domain.CatsNearby
 import com.tw.training.catkeeper.network.Constants.Companion.HOST_DOMAIN
+import com.tw.training.catkeeper.utils.GlideApp
 import com.tw.training.catkeeper.utils.loadImageUrl
 
 /**
  * Created by pchen on 26/10/2017.
  */
-class CatsNearbyAdapter(context: Context, var mCatsNearbyList: List<CatsNearby>?) :
+class CatsNearbyAdapter(private val context: Context, var mCatsNearbyList: List<CatsNearby>?) :
         RecyclerView.Adapter<CatsNearbyAdapter.CatsNearbyViewHolder>() {
     private val mInflater: LayoutInflater = LayoutInflater.from(context)
     var mProfileClickListener: OnProfileClickListener? = null
 
-    override fun getItemCount(): Int {
-        return mCatsNearbyList?.size ?: 0
-    }
+    override fun getItemCount(): Int = mCatsNearbyList?.size ?: 0
 
     override fun onBindViewHolder(holder: CatsNearbyAdapter.CatsNearbyViewHolder?, position: Int) {
         holder!!.mNameTv.text = mCatsNearbyList?.get(position)?.name
-        holder.mAvatarIv.loadImageUrl(HOST_DOMAIN +
-                mCatsNearbyList?.get(position)?.avatar?.imageUrl)
+//        holder.mAvatarIv.loadImageUrl(HOST_DOMAIN +
+//                mCatsNearbyList?.get(position)?.avatar?.imageUrl)
+        GlideApp.with(context).load(HOST_DOMAIN + mCatsNearbyList?.get(position)?.avatar?.imageUrl)
+                .override(Target.SIZE_ORIGINAL).into(holder.mAvatarIv)
         holder.mUpdateTime.text = mCatsNearbyList!![position].updateTime.toString()
         holder.mDescription.text = mCatsNearbyList!![position].description
         for ((index, value) in mCatsNearbyList!![position].thumbsList.withIndex()) {
-            holder.mThumbs[index].loadImageUrl(HOST_DOMAIN + value.imageUrl)
+//            holder.mThumbs[index].loadImageUrl(HOST_DOMAIN + value.imageUrl)
+            GlideApp.with(context).load(HOST_DOMAIN + value.imageUrl).override(Target.SIZE_ORIGINAL)
+                    .into(holder.mThumbs[index])
+//            Glide.with(context).load(HOST_DOMAIN + value.imageUrl).into(holder.mThumbs[index])
             holder.mThumbs[index].visibility = View.VISIBLE
         }
         for (i: Int in (mCatsNearbyList!![position].thumbsList.size..2)) {
