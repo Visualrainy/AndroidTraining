@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,7 +20,7 @@ import com.tw.training.catkeeper.presenter.CatsNearbyPresenter
  */
 class CatsNearByFragment : Fragment(), CatsNearbyContract.View, CatsNearbyAdapter.OnProfileClickListener {
     private lateinit var mRecyclerView: RecyclerView
-
+    private val TAG = "CatsNearByFragment"
     private val mPresenter: CatsNearbyPresenter = CatsNearbyPresenter(this)
 
     private lateinit var mCatsNearbyAdapter: CatsNearbyAdapter
@@ -45,6 +46,31 @@ class CatsNearByFragment : Fragment(), CatsNearbyContract.View, CatsNearbyAdapte
         mPresenter.start()
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        Log.d(TAG, "xxxxxxxxxxxxxxxxonCreate")
+    }
+
+    override fun onStart() {
+        super.onStart()
+        Log.d(TAG, "xxxxxxxxxxxxxxxxonStart")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d(TAG, "xxxxxxxxxxxxxxxxonResume")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.d(TAG, "xxxxxxxxxxxxxxxxonPause")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Log.d(TAG, "xxxxxxxxxxxxxxxxonStop")
+    }
+
     override fun showNearbyCats(catsNearbyList: List<CatsNearby>?) {
         mCatsNearbyAdapter.mCatsNearbyList = catsNearbyList
         mCatsNearbyAdapter.notifyDataSetChanged()
@@ -64,6 +90,7 @@ class CatsNearByFragment : Fragment(), CatsNearbyContract.View, CatsNearbyAdapte
 
     override fun onDestroy() {
         super.onDestroy()
+        Log.d(TAG, "xxxxxxxxxxxxxxxxonDestroy")
         mPresenter.stop()
     }
 }

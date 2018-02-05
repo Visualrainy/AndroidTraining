@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
@@ -14,6 +15,7 @@ import com.tw.training.catkeeper.fragment.CatsNearByFragment
 import com.tw.training.catkeeper.fragment.MyCatsFragment
 
 class MainActivity : AppCompatActivity(), ViewPager.OnPageChangeListener, View.OnClickListener {
+    private val TAG = "MainActivity"
     private lateinit var mViewPager: ViewPager
     private lateinit var mLeftTabView: Button
     private lateinit var mRightTabView: Button
@@ -36,11 +38,32 @@ class MainActivity : AppCompatActivity(), ViewPager.OnPageChangeListener, View.O
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Log.d(TAG, "yyyyyyyyyyyyyonCreate")
         setContentView(R.layout.activity_main)
 
         initBannerView()
         initTabView()
         initFragmentView()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        Log.d(TAG, "yyyyyyyyyyyyyonStart")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.d(TAG, "yyyyyyyyyyyyyonPause")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Log.d(TAG, "yyyyyyyyyyyyyonStop")
+    }
+
+    override fun onSaveInstanceState(outState: Bundle?) {
+        super.onSaveInstanceState(outState)
+        Log.d(TAG, "yyyyyyyyyyyyyonSaveInstanceState")
     }
 
     private fun initTabView() {
@@ -62,6 +85,7 @@ class MainActivity : AppCompatActivity(), ViewPager.OnPageChangeListener, View.O
     override fun onResume() {
         super.onResume()
         mHandler.postDelayed(mBannerRunnable, mBannerInterval)
+        Log.d(TAG, "yyyyyyyyyyyyyonResume")
     }
 
     override fun onClick(v: View?) {
@@ -119,6 +143,7 @@ class MainActivity : AppCompatActivity(), ViewPager.OnPageChangeListener, View.O
 
     override fun onDestroy() {
         super.onDestroy()
+        Log.d(TAG, "yyyyyyyyyyyyyonDestroy")
         mHandler.removeCallbacks(mBannerRunnable)
     }
 }
